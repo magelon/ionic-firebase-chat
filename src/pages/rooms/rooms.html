@@ -1,0 +1,87 @@
+<!--
+  Generated template for the Rooms page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>rooms</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    
+
+    <ion-list>
+        <ion-list-header >
+    latest 12 public rooms 
+    </ion-list-header>
+     <ion-item-sliding *ngFor="let event of pubList">
+      
+              <button ion-item (click)="openRoom(event.name)">
+               <strong>{{event?.pp}}    </strong>
+               
+           </button>
+  </ion-item-sliding>
+
+    </ion-list>
+
+
+
+    <ion-list>
+
+    <ion-list-header >
+    rooms you were
+    </ion-list-header>
+     <ion-item-sliding *ngFor="let event of roomList">
+      
+              <button ion-item (click)="openRoom(event.name)">
+               <strong>{{event?.pp}}    </strong>
+               
+           </button>
+
+      
+     
+    <ion-item-options side="left">
+     
+      <button ion-button color="danger" (click)="removeR(event.name,event.key)">Delete</button>
+    </ion-item-options>
+  </ion-item-sliding>
+        <!--
+         <ion-item *ngFor="let event of roomList" >
+         
+     
+      <p><strong>
+          
+          <button ion-button (click)="openRoom(event.name)">
+       ${{event?.pp}} 
+      </button>
+          <button ion-button  (click)="removeR(event.key)">
+       remove 
+      </button>
+         </strong></p>
+      
+    </ion-item>
+    -->
+  </ion-list>
+
+     <ion-toolbar>
+    <ion-item>
+    
+    <ion-input [(ngModel)]="nameRoom" type="string" placeholder="add room here"></ion-input>
+  </ion-item>
+
+          <ion-buttons end>
+    
+     <button ion-button icon-right color="royal" (click)="createRoom(nameRoom)">
+    submit
+  </button>
+         </ion-buttons>
+    
+          </ion-toolbar>
+   
+</ion-content>

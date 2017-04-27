@@ -1,0 +1,139 @@
+<!--
+  Generated template for the Contact page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>contact</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  
+    <ion-list>
+        <ion-list-header >
+    Find user by email 
+        <ion-searchbar
+            
+        [(ngModel)]="email"
+        [showCancelButton]="shouldShowCancel"
+        (ionInput)="findByEmail(email)"
+        (ionCancel)="onCancel($event)">
+        </ion-searchbar>
+    </ion-list-header>
+         <ion-item *ngFor="let found of foundList" text-wrap >
+            
+             <ion-avatar item-left>
+                <img src="{{found.pic}}"/>
+            </ion-avatar>
+             {{found.name}}
+           
+              <button ion-button icon-only (click)="presentPopover(found.key)">
+              
+            add to contact
+             </button>
+            </ion-item>
+        </ion-list>
+
+    <ion-list>
+
+    <ion-list-header >
+    contactsPadding
+    </ion-list-header>
+<!-- 
+    <ion-item *ngFor="let event of contactPaddList" >
+         
+   -->
+       
+
+       <ion-item-sliding *ngFor="let event of contactPaddList">
+     <ion-item>
+         <ion-avatar item-left>
+          <img src="{{event?.pic}}"  />
+             </ion-avatar>
+     {{event?.name}} want contact you
+    </ion-item>
+    <ion-item-options side="right">
+
+      <button ion-button (click)="addContact(event.name,event.id,event.key,event.pic)">
+       yes
+      </button>
+     </ion-item-options>
+
+    <ion-item-options side="left">
+     
+      <button ion-button color="danger" (click)="removeContactP(event.key)">No</button>
+    </ion-item-options>
+  </ion-item-sliding>
+    
+    
+    
+        <!--
+              <p><strong>${{event?.name}} 
+          
+          <button ion-button (click)="addContact(event.name,event.id,event.key)">
+       yes
+      </button>
+          <button ion-button  (click)="removeContactP(event.key)">
+       no 
+      </button>
+         </strong></p>
+             </ion-item>
+            -->
+    
+     
+      
+   
+  </ion-list>
+
+
+
+    <ion-list>    
+        <!--
+            <ion-item *ngFor="let event of contactList" >
+             <p>  
+           <button ion-item (click)="openRoom(event.room)">
+               <strong>{{event?.name}}    </strong>
+               
+           </button>
+           <button ion-button  (click)="removeContacts(event.key)">
+             no 
+           </button>
+       </p>  
+             -->    
+     
+      <ion-list-header >
+    contacts
+    </ion-list-header>
+     <ion-item-sliding *ngFor="let event of contactList">
+         <ion-item>
+              <ion-avatar item-left>
+          <img src="{{event?.pic}}"  />
+             </ion-avatar>
+              <button ion-item (click)="openRoom(event)">
+               <strong>{{event?.name}}    </strong>
+               
+           </button>
+
+         </ion-item>
+     
+    <ion-item-options side="left">
+     
+      <button ion-button color="danger" (click)="removeContacts(event.key)">Delete</button>
+    </ion-item-options>
+  </ion-item-sliding>
+  
+     <!--
+          </ion-item>
+         -->
+      
+   
+  </ion-list>
+
+
+</ion-content>

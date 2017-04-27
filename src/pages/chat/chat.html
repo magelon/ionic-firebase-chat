@@ -1,0 +1,87 @@
+<!--
+  Generated template for the Chat page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{room}} chat</ion-title>
+      
+      <ion-buttons end>
+          <button ion-button (click)="share()">
+          <ion-icon name="share">share</ion-icon>
+          </button>
+     
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+   
+    <ion-list>
+
+   
+         
+     <ion-item-sliding *ngFor="let event of eventList">
+
+       <ion-item text-wrap> 
+           <ion-avatar item-left>
+                <img src="{{event.pic}}"/>
+            </ion-avatar>
+           <strong>{{event?.name}}</strong>
+           
+           <p> 
+           <strong>{{event?.text}}</strong>
+               </p>
+               <p> 
+            <img src="{{event?.messagePicture}}"/>
+                   </p>
+        </ion-item> 
+
+           <ion-item-options side="left">
+     
+            <button *ngIf="userId==event.userId" ion-button color="danger" (click)="removeMessage(event.key)">Delete</button>
+            </ion-item-options>
+
+            <ion-item-options side="right">
+
+            <button *ngIf="userId!=event.userId" ion-button icon-only (click)="presentPopover(event.userId)">
+              
+            Add Contact
+             </button>
+             </ion-item-options>
+
+      
+   </ion-item-sliding>
+  </ion-list>
+
+   
+    <ion-toolbar>
+
+      <ion-item>
+    
+          
+    <ion-input [(ngModel)]="message" type="text" placeholder="type here"></ion-input>
+    </ion-item>
+    
+
+    <ion-buttons end>
+      <button ion-button icon-right color="royal" (click)="createMessage(userName,message)" >
+        Send
+        <ion-icon name="send"></ion-icon>
+      </button>
+        <button ion-button (click)="takePicture()">Img</button>
+    </ion-buttons>
+       
+         <!---->
+           
+  </ion-toolbar>
+
+
+
+
+</ion-content>
