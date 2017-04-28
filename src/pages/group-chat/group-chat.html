@@ -1,0 +1,66 @@
+<!--
+  Generated template for the GroupChat page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>group-chat</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+   
+        <ion-grid>
+            <ion-row>
+                <ion-col col-3 *ngFor="let contect of inviteList">
+                   <ion-item>
+                    <ion-avatar item-left>
+                        <img src="{{contect?.pic}}"  />
+                    </ion-avatar>
+                       </ion-item>
+                       {{contect?.name}}
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        
+     <ion-list>
+        <ion-list-header >
+        Invite contact
+        </ion-list-header>
+
+           <ion-item-sliding *ngFor="let event of contactList">
+               <ion-item>
+              <ion-avatar item-left>
+                <img src="{{event?.pic}}"  />
+             </ion-avatar>
+                  
+            <ion-label>{{event?.name}} </ion-label>
+
+                    <button ion-button 
+                        item-right 
+                        (click)="addInvite(event)">
+                        invite
+                    </button>
+                   <button ion-button 
+                        item-right 
+                        (click)="removeInvite(event)">
+                        remove
+                    </button>
+
+            </ion-item>
+             
+
+           </ion-item-sliding>
+
+            
+
+    </ion-list>
+
+           
+
+</ion-content>

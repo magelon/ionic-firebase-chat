@@ -18,8 +18,7 @@
     <ion-list>
         <ion-list-header >
     Find user by email 
-        <ion-searchbar
-            
+        <ion-searchbar            
         [(ngModel)]="email"
         [showCancelButton]="shouldShowCancel"
         (ionInput)="findByEmail(email)"
@@ -53,9 +52,9 @@
 
        <ion-item-sliding *ngFor="let event of contactPaddList">
      <ion-item>
-         <ion-avatar item-left>
+          <ion-avatar item-left>
           <img src="{{event?.pic}}"  />
-             </ion-avatar>
+          </ion-avatar>
      {{event?.name}} want contact you
     </ion-item>
     <ion-item-options side="right">
@@ -111,16 +110,17 @@
     contacts
     </ion-list-header>
      <ion-item-sliding *ngFor="let event of contactList">
-         <ion-item>
-              <ion-avatar item-left>
-          <img src="{{event?.pic}}"  />
-             </ion-avatar>
-              <button ion-item (click)="openRoom(event)">
+        <ion-item (click)="openRoom(event)">
+            <ion-avatar item-left>
+            <img src="{{event?.pic}}"  />
+            </ion-avatar>
+        
+              
                <strong>{{event?.name}}    </strong>
                
-           </button>
-
-         </ion-item>
+        
+        </ion-item>
+         
      
     <ion-item-options side="left">
      
@@ -134,6 +134,12 @@
       
    
   </ion-list>
-
+    <ion-list-header >
+    group chat rooms
+    </ion-list-header>
+     <button ion-button (click)="groupChat()">
+              
+           start group chat
+             </button>
 
 </ion-content>

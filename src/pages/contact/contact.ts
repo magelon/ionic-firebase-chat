@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ProfileData } from '../../providers/profile-data';
 
 import {Chat} from'../chat/chat';
+import {GroupChat} from'../group-chat/group-chat';
 import {ContactChat} from'../contact-chat/contact-chat';
 import {PopOverUser}from '../pop-over-user/pop-over-user';
 
@@ -74,6 +75,7 @@ export class Contact {
             });
     }
     
+  
 
     ionViewWillEnter() {
 
@@ -130,7 +132,9 @@ export class Contact {
     }
 
   
-    
+    groupChat() {
+        this.navCtrl.push(GroupChat);
+    }
 
     openRoom(name) {
         

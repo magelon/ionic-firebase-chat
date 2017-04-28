@@ -18,6 +18,7 @@ import {Mid} from '../pages/mid/mid';
 import {PopOverUser} from'../pages/pop-over-user/pop-over-user';
 import {Map}from '../pages/map/map';
 import {ContactChat} from '../pages/contact-chat/contact-chat';
+import {GroupChat} from'../pages/group-chat/group-chat';
 
 import { AuthData } from '../providers/auth-data';
 import { EventData } from '../providers/event-data';
@@ -45,7 +46,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
       Contact,
       Mid,
       PopOverUser,
-      ContactChat
+      ContactChat,
+      GroupChat
 
   ],
   imports: [
@@ -69,7 +71,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
       Contact,
       Mid,
       PopOverUser,
-      ContactChat
+      ContactChat,
+      GroupChat
   ],
   providers: [
       Camera,
