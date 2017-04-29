@@ -18,13 +18,14 @@
         <ion-grid>
             <ion-row>
                 <ion-col col-3 *ngFor="let contect of inviteList">
-                   <ion-item>
+                   
                     <ion-avatar item-left>
                         <img src="{{contect?.pic}}"  />
                     </ion-avatar>
-                       </ion-item>
+
                        {{contect?.name}}
                     </ion-col>
+               
                 </ion-row>
             </ion-grid>
         
@@ -60,7 +61,72 @@
             
 
     </ion-list>
+        <ion-item>
+             <ion-input [(ngModel)]="gname" type="string" placeholder="group chat name"></ion-input>
+           
+        </ion-item>
+     <button ion-button (click)="beginGroupChat(gname)">Create group chat</button>
+
+      <ion-list>
+        <ion-list-header >
+        Group Chat List
+        </ion-list-header>
+
+           <ion-item-sliding *ngFor="let event of groupList">
+               <button ion-item (click)="openGroupChat(event)">
+            
+                  
+            <ion-label>{{event?.name}} </ion-label>
+
+            </button>
+                   <!--delete--> 
+                 <ion-item-options side="left">
+     
+      <button ion-button (click)="removeGroup(event.key)">remove group</button>
+    </ion-item-options>
+
 
            
+
+             
+
+           </ion-item-sliding>
+
+        </ion-list>
+
+     <ion-list>
+        <ion-list-header >
+        Group Chat Invitation List
+        </ion-list-header>
+
+           <ion-item-sliding *ngFor="let event of groupInviList">
+               <ion-item>
+                 
+                    <ion-avatar item-left>
+                        <img src="{{event?.pic}}"  />
+                    </ion-avatar>
+                      
+                  
+            <ion-label>{{event?.who}} invite you to{{event.name}}</ion-label>
+
+                   <!--delete--> 
+                 
+
+            </ion-item>
+               <ion-item-options side="left">
+     
+      <button ion-button (click)="denyGroup(event.key)">deny</button>
+    </ion-item-options>
+
+                <ion-item-options side="right">
+     
+      <button ion-button (click)="acceptGroupInvi(event.name,event.room,event.key)">accept</button>
+    </ion-item-options>
+
+
+           </ion-item-sliding>
+
+        </ion-list>
+
 
 </ion-content>

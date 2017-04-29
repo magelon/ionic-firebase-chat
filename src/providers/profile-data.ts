@@ -10,10 +10,16 @@ export class ProfileData {
   public userRooms: firebase.database.Reference;
   public messages: firebase.database.Reference;
   public pubRooms: firebase.database.Reference;
+
+  public groupRoom: firebase.database.Reference;
+  public groupChatInvi: firebase.database.Reference;
+
   public userContactP: firebase.database.Reference;
   public userContacts: firebase.database.Reference;
 
   constructor() {
+      
+
       this.profilePicture = firebase.storage().ref('profilePic');
       this.messages = firebase.database().ref('/messages');
       this.currentUser = firebase.auth().currentUser;
@@ -21,6 +27,9 @@ export class ProfileData {
       this.pubRooms = firebase.database().ref('/pubs');
       this.userContactP = firebase.database().ref(`/userProfile/${this.currentUser.uid}/contactsPadd/`);
       this.userContacts = firebase.database().ref(`/userProfile/${this.currentUser.uid}/contacts/`);
+
+      this.groupRoom = firebase.database().ref(`/userProfile/${this.currentUser.uid}/groupChat`);
+      this.groupChatInvi = firebase.database().ref(`/userProfile/${this.currentUser.uid}/groupChatInvitation`);
       this.userProfile = firebase.database().ref('/userProfile');
 
   }
@@ -49,6 +58,14 @@ export class ProfileData {
       return this.userContacts;
   }
 
+    //get group chat invitaion
+  getGroupInvi(): firebase.database.Reference {
+      return this.groupChatInvi;
+  }
+    //get your group chat list
+  getGroupList(): firebase.database.Reference {
+      return this.groupRoom;
+  }
     //get userid 
   getUserId(): string {
       return this.currentUser.uid;
@@ -135,10 +152,66 @@ export class ProfileData {
           pp:name
       });
   }
+  //remove group chat
+  removeGroup(roomId: string): firebase.Promise<any> {
+      return this.userProfile.child(this.currentUser.uid).child('groupChat')
+          .child(roomId).remove();
+  }
+
+  //accept group invite
+  addGroupRoom(roomName:string,roomId: string,key): firebase.Promise<any> {
+      return this.userProfile.child(this.currentUser.uid).child('groupChat').push({
+          roomName: roomName,
+          roomId:roomId
+      }).then((newGroupChat) => {
+          this.userProfile.child(this.currentUser.uid).child('groupChatInvitation')
+              .child(key).remove();
+          console.log("Remove succeeded.");
+          return newGroupChat;
+          });
+      
+  }
+
+    //deny group invite
+  denyGroup(key): firebase.Promise<any> {
+      return this.userProfile.child(this.currentUser.uid).child('groupChatInvitation')
+          .child(key).remove();
+  }
+
+    //start adding group room
+  initGroupRoom(who:string,roomName:string,inviteList:any,pic): firebase.Promise<any> {
+      return this.userProfile.child(this.currentUser.uid).child('groupChat').push({
+          roomName: roomName
+      }).then(
+          (newRoom) => {
+              this.userProfile.child(this.currentUser.uid).child('groupChat').child(newRoom.key).
+                  child('roomId').set(newRoom.key);
+              inviteList.forEach(
+                  snap => {
+                      this.userProfile.child(snap.id).child('groupChatInvitation').push({
+                          roomName: roomName,
+                          roomId: newRoom.key,
+                          who: who,
+                          pic:pic
+                      });
+                  }
+              );
+            
+            return newRoom;
+      });
+  }
+
+    //group room invite
+  groupRoomInvite(who:string,userid: string, room: string): firebase.Promise<any> {
+      return this.userProfile.child(userid).child('groupRoomInvite').push({
+          who:who,
+          name: room
+      });
+  }
     //add contactroom to pp
   addContactRoomTo(userid: string,name:any, id: string): firebase.Promise<any> {
       let room: string = userid + id;
-      console.log(room);
+      //console.log(room);
       return this.userProfile.child(id).child('rooms').push({
           name: room,
           pp:name

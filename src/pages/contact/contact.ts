@@ -102,8 +102,10 @@ export class Contact {
             snapshot.forEach(snap => {
                 rawList.push({
                     key: snap.key,
+                    // contact name
                     name: snap.val().name,
                     id: snap.val().id,
+                    //whisper room id
                     room: snap.val().room,
                     pic:snap.val().pic
 
