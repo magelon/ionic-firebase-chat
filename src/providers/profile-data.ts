@@ -10,6 +10,8 @@ export class ProfileData {
   public userRooms: firebase.database.Reference;
   public messages: firebase.database.Reference;
   public pubRooms: firebase.database.Reference;
+  public pubItemList: firebase.database.Reference;
+  public itemList: firebase.database.Reference;
 
   public groupRoom: firebase.database.Reference;
   public groupChatInvi: firebase.database.Reference;
@@ -22,7 +24,10 @@ export class ProfileData {
 
       this.profilePicture = firebase.storage().ref('profilePic');
       this.messages = firebase.database().ref('/messages');
+      this.pubItemList = firebase.database().ref('/pubItems');
       this.currentUser = firebase.auth().currentUser;
+
+      this.itemList = firebase.database().ref(`/userProfile/${this.currentUser.uid}/itemList`);
       this.userRooms = firebase.database().ref(`/userProfile/${this.currentUser.uid}/rooms`);
       this.pubRooms = firebase.database().ref('/pubs');
       this.userContactP = firebase.database().ref(`/userProfile/${this.currentUser.uid}/contactsPadd/`);
@@ -56,6 +61,14 @@ export class ProfileData {
 
   getUserContacts(): firebase.database.Reference {
       return this.userContacts;
+  }
+    //get pub items
+  getPubItems(): firebase.database.Reference {
+      return this.pubItemList;
+  }
+   //get your items
+  getItemList(): firebase.database.Reference {
+      return this.itemList;
   }
 
     //get group chat invitaion

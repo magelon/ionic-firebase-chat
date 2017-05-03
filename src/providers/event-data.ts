@@ -10,12 +10,15 @@ export class EventData {
     public messageid: string;
   
 
-  public eventList: firebase.database.Reference;
+    public eventList: firebase.database.Reference;
+    public itemList: firebase.database.Reference;
+    public pubItems: firebase.database.Reference;
 
   public messageList: firebase.database.Reference;
   public messageRooms: firebase.database.Reference;
 
   public profilePictureRef: firebase.storage.Reference;
+  public itemPictureRef: firebase.storage.Reference;
 
   public pictureRef: firebase.storage.Reference;
 
@@ -25,11 +28,15 @@ export class EventData {
 
     this.currentUser = firebase.auth().currentUser.uid;
     this.eventList = firebase.database().ref(`userProfile/${this.currentUser}/eventList`);
+    this.itemList = firebase.database().ref(`userProfile/${this.currentUser}/itemList`);
+    this.pubItems = firebase.database().ref('/pubItems');
 
     this.messageRooms = firebase.database().ref('/messages')
 
     this.messageList = firebase.database().ref('/messages/1/messageList');
+
     this.profilePictureRef = firebase.storage().ref('/messageImgs/');
+    this.itemPictureRef = firebase.storage().ref('/itemImgs/');
 
     this.pictureRef = firebase.storage().ref('/messageImgs/1/');
 
@@ -94,7 +101,46 @@ export class EventData {
     });
   }
 
- 
+  
+  //add item
+  addItem(userName, itemName,itemPrice,desc, itemPic=null,yourId ): firebase.Promise<any> {
+      return this.itemList.push({
+          userName: userName,
+          itemPrice: itemPrice,
+          itemName: itemName,
+          desc:desc,
+          seller:yourId
+      }).then((newItem) => {
+          this.pubItems.child(newItem.key).set({
+              userName: userName,
+              itemPrice: itemPrice,
+              itemName: itemName,
+              desc: desc,
+              seller:yourId
+          });
+          if (itemPic != null) {
+              this.itemPictureRef.child(newItem.key).child('itemPicture.png')
+                  .putString(itemPic, 'base64', { contentType: 'image/png' })
+                  .then((savedPic) => {
+                      this.itemList.child(newItem.key)
+                          .child('itemPic').set(savedPic.downloadURL);
+                      this.pubItems.child(newItem.key).child('itemPic').set(savedPic.downloadURL);
+                  });
+              }
+          });
+  }
+ //delete your item also in pub
+  removePubItem(itemId): firebase.Promise<any> {
+      return this.pubItems.child(itemId).remove();
+  }
+     //delete your item also in pub
+  deleteItem(itemId): firebase.Promise<any>{
+      return this.itemList.child(itemId).remove().then(function () {
+          
+       
+          this.itemPictureRef.child(itemId).child('itemPicture.png').delete();
+      })
+  }
 
   addGuest(guestName, eventId, eventPrice, guestPicture = null): firebase.Promise<any> {
     return this.eventList.child(eventId).child('guestList').push({
@@ -108,7 +154,8 @@ export class EventData {
         this.profilePictureRef.child(newGuest.key).child('profilePicture.png')
       .putString(guestPicture, 'base64', {contentType: 'image/png'})
         .then((savedPicture) => {
-          this.eventList.child(eventId).child('guestList').child(newGuest.key).child('profilePicture')
+            this.eventList.child(eventId).child('guestList').child(newGuest.key)
+                .child('profilePicture')
           .set(savedPicture.downloadURL);
         });        
       }

@@ -2,10 +2,15 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ProfileData } from '../../providers/profile-data';
 
+//import {StripeServer} from'../../providers/stripe-server';
+
+
 import {Chat} from'../chat/chat';
 import {GroupChat} from'../group-chat/group-chat';
 import {ContactChat} from'../contact-chat/contact-chat';
 import {PopOverUser}from '../pop-over-user/pop-over-user';
+
+
 
 /**
  * Generated class for the Contact page.
@@ -31,7 +36,9 @@ export class Contact {
 
     constructor(public profileData: ProfileData
         , public navCtrl: NavController
-        , public navParams: NavParams) {
+        , public navParams: NavParams 
+    ) {
+        
 
         this.userid = profileData.getUserId();
 
@@ -45,7 +52,8 @@ export class Contact {
 
         
     }
-
+    
+    
     //push to contact page
     presentPopover(userId) {
         this.navCtrl.push(PopOverUser, userId);

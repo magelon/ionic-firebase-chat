@@ -25,6 +25,8 @@ import { AdMob } from 'ionic-native';
 })
 export class ContactChat {
 
+    public message: any;
+
     public userProfile: any;
     public userName: string;
     public guestPicture: any = null;
@@ -55,7 +57,7 @@ export class ContactChat {
 
         });
 
-        message = null;
+        this.message ="";
         this.guestPicture = null;
 
     }

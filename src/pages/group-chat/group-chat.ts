@@ -17,6 +17,8 @@ import {ContactChat} from'../contact-chat/contact-chat';
 })
 export class GroupChat {
 
+    public gname: any;
+
     public userName;
     public userProfile;
     public pic;
@@ -123,6 +125,7 @@ export class GroupChat {
 
     beginGroupChat(gname) {
         this.profileData.initGroupRoom(this.userName, gname, this.inviteList, this.pic);
+        this.gname = "";
     }
 
     addInvite(broker) {

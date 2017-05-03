@@ -34,6 +34,7 @@ export class Chat {
     
     public userId: string;
     public pic: string;
+    public message: any;
 
 
     constructor(private social: SocialSharing
@@ -56,7 +57,7 @@ export class Chat {
     }
 
     share() {
-        this.social.share(`join the ${this.room} Chat`, null, null, "https://play.google.com/store/apps/details?id=com.ionicframework.chat855834");
+        this.social.share(`join the ${this.room} Chat`, null, null, "");
     }
 
     createMessage(userName: string, message: string) {
@@ -67,8 +68,8 @@ export class Chat {
            
         });
 
-        message = null;
-        this.guestPicture = null;
+       this.message =" ";
+       // this.guestPicture = null;
         
     }
 

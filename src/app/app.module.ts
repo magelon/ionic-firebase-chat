@@ -19,9 +19,16 @@ import {PopOverUser} from'../pages/pop-over-user/pop-over-user';
 import {Map}from '../pages/map/map';
 import {ContactChat} from '../pages/contact-chat/contact-chat';
 import {GroupChat} from'../pages/group-chat/group-chat';
+import {Market}from '../pages/market/market';
+import {Sell} from '../pages/sell/sell';
+import {Buy} from'../pages/buy/buy';
+import{ItemDetail} from'../pages/item-detail/item-detail';
 
 import { AuthData } from '../providers/auth-data';
 import { EventData } from '../providers/event-data';
+import { SocialSharing } from '@ionic-native/social-sharing';
+//import {StripeServer}from '../providers/stripe-server';
+
 
 import { ProfileData } from '../providers/profile-data';
 
@@ -47,7 +54,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
       Mid,
       PopOverUser,
       ContactChat,
-      GroupChat
+      GroupChat,
+      Market,Sell,Buy,ItemDetail
 
   ],
   imports: [
@@ -72,9 +80,12 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
       Mid,
       PopOverUser,
       ContactChat,
-      GroupChat
+      GroupChat,
+      Market,Sell,Buy,ItemDetail
   ],
-  providers: [
+  providers: [ 
+      //StripeServer,
+       SocialSharing,
       Camera,
     StatusBar,
       SplashScreen, AuthData, ProfileData, EventData

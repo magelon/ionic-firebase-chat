@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { EventData } from '../../providers/event-data';
 import { ProfileData } from '../../providers/profile-data';
+
+import {Market} from'../market/market';
 import {Chat} from'../chat/chat';
 
 
@@ -17,6 +19,9 @@ import {Chat} from'../chat/chat';
   templateUrl: 'rooms.html',
 })
 export class Rooms {
+
+    public nameRoom: any;
+
     public userid: string;
     public roomList: any;
     public pubList: any;
@@ -70,9 +75,14 @@ export class Rooms {
         this.navCtrl.push(Chat, broker);
     }
 
+    openMarket() {
+        this.navCtrl.push(Market);
+    }
+
     createRoom(nameRoom) {
         this.profileData.addRoom(nameRoom);
         this.profileData.addRoomPub(nameRoom);
+        this.nameRoom = "";
     }
 
     removeR(roomName:string,key: any) {
