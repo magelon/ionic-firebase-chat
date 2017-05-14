@@ -75,6 +75,10 @@ export class Rooms {
         this.navCtrl.push(Chat, broker);
     }
 
+openSocial(){
+    this.navCtrl.push("Social");
+}
+
     openMarket() {
         this.navCtrl.push(Market);
     }

@@ -9,7 +9,6 @@ import { TabsPage } from '../pages/tabs/tabs';
 import {Rooms}from '../pages/rooms/rooms';
 import {Mid} from '../pages/mid/mid';
 
-
 import firebase from'firebase';
 
 @Component({

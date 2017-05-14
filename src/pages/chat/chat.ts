@@ -35,6 +35,7 @@ export class Chat {
     public userId: string;
     public pic: string;
     public message: any;
+    public time:any;
 
 
     constructor(private social: SocialSharing
@@ -47,6 +48,7 @@ export class Chat {
         this.room = this.navParams.data;
         
         this.userId = profileData.getUserId();
+        
 
     }
 
@@ -61,8 +63,8 @@ export class Chat {
     }
 
     createMessage(userName: string, message: string) {
-
-        this.eventData.createMessage(userName, message, this.guestPicture, this.room, this.userId,this.pic).then(() => {
+        this.time= Date.now();
+        this.eventData.createMessage(userName, message, this.guestPicture, this.room, this.userId,this.pic,this.time).then(() => {
    
             this.presentToast();
            
@@ -118,7 +120,8 @@ export class Chat {
                    name: snap.val().name,
                     userId:snap.val().userId,
                     text: snap.val().text,
-                    pic:snap.val().pic
+                    pic:snap.val().pic,
+                    time:snap.val().time
 
                 });
                 return false

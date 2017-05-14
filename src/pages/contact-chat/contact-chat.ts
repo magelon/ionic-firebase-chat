@@ -38,6 +38,7 @@ export class ContactChat {
 
     public userId: string;
     public pic: string;
+    public time:any;
 
 
     constructor( public navCtrl: NavController, public navParams: NavParams
@@ -47,11 +48,12 @@ export class ContactChat {
         this.cName = this.navParams.data.name;
 
         this.userId = profileData.getUserId();
+        
   }
 
     createMessage(userName: string, message: string) {
-
-        this.eventData.createMessage(userName, message, this.guestPicture, this.room, this.userId, this.pic).then(() => {
+        this.time=Date.now();
+        this.eventData.createMessage(userName, message, this.guestPicture, this.room, this.userId, this.pic,this.time).then(() => {
 
             this.presentToast();
 

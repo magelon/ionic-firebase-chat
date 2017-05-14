@@ -71,12 +71,13 @@ export class EventData {
           });
   }
 
-  createMessage(userName: string, message: string, picture = null, room:string,userId:string,pic:string): firebase.Promise<any> {
+  createMessage(userName: string, message: string, picture = null, room:string,userId:string,pic:string,time): firebase.Promise<any> {
       return this.messageRooms.child(room).child('messageList').push({
           userId: userId,
           name: userName,
           text: message,
-          pic:pic
+          pic:pic,
+          time:time
       }).then((newMessage) => {
           if (picture != null) {
               this.pictureRef.child(newMessage.key).child('messagePicture.png')
